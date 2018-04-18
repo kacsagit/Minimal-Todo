@@ -40,6 +40,7 @@ import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment
 import com.example.avjindersinghsekhon.minimaltodo.Main.CustomRecyclerScrollViewListener;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
+import com.example.avjindersinghsekhon.minimaltodo.Payment.PaymentActivity;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Reminder.ReminderFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
@@ -49,6 +50,9 @@ import com.example.avjindersinghsekhon.minimaltodo.Utility.RecyclerViewEmptySupp
 import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.TodoNotificationService;
+import com.sumup.merchant.Models.TransactionInfo;
+import com.sumup.merchant.api.SumUpAPI;
+import com.sumup.merchant.api.SumUpLogin;
 
 import org.json.JSONException;
 
@@ -68,29 +72,31 @@ public class StartScreenFragment extends AppDefaultFragment {
     public static final String THEME_PREFERENCES = "com.avjindersekhon.themepref";
     public static final String RECREATE_ACTIVITY = "com.avjindersekhon.recreateactivity";
 
+
+
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final Button todoButton= (Button) view.findViewById(R.id.todo_button);
+        final Button todoButton = (Button) view.findViewById(R.id.todo_button);
         todoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(), MainActivity.class);
+                Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
-        final Button payButton= (Button) view.findViewById(R.id.pay_button);
-        todoButton.setOnClickListener(new View.OnClickListener() {
+        final Button payButton = (Button) view.findViewById(R.id.pay_button);
+        payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(), MainActivity.class);
+                Intent intent = new Intent(getContext(), PaymentActivity.class);
                 startActivity(intent);
             }
         });
-
-
 
     }
+
 
 
 
@@ -124,9 +130,7 @@ public class StartScreenFragment extends AppDefaultFragment {
             getActivity().recreate();
         }
 
-
     }
-
 
 
     @Override

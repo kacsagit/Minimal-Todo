@@ -12,11 +12,15 @@ import android.view.MenuItem;
 import com.example.avjindersinghsekhon.minimaltodo.About.AboutActivity;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
+import com.example.avjindersinghsekhon.minimaltodo.Payment.PaymentActivity;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
+import com.sumup.merchant.api.SumUpAPI;
 
 public class StartScreenActivity extends AppDefaultActivity {
     String theme;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         theme = getSharedPreferences(MainFragment.THEME_PREFERENCES, MODE_PRIVATE).getString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);
@@ -86,6 +90,7 @@ public class StartScreenActivity extends AppDefaultActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
 
 }

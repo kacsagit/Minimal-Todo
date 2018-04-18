@@ -36,13 +36,18 @@
 
         <activity
             android:name=".AddToDo.AddToDoActivity"
-            android:parentActivityName=".Main.MainActivity"
+            android:parentActivityName=".StartScreen.StartScreenActivity"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".About.AboutActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".Main.MainActivity" />
+            android:parentActivityName=".StartScreen.StartScreenActivity" />
+
+        <activity
+            android:name=".Payment.PaymentActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".StartScreen.StartScreenActivity" />
 
         <activity
             android:name=".Reminder.ReminderActivity"
@@ -53,7 +58,13 @@
 
         <activity
             android:name=".Settings.SettingsActivity"
-            android:parentActivityName=".Main.MainActivity"
+            android:parentActivityName=".StartScreen.StartScreenActivity"
+
+            />
+
+        <activity
+            android:name=".Receipt.ReceiptConfActivity"
+            android:parentActivityName=".StartScreen.StartScreenActivity"
 
             />
 

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.sumup.merchant.api.SumUpState;
 
 public abstract class AppDefaultActivity extends AppCompatActivity {
     @Override
@@ -15,6 +16,7 @@ public abstract class AppDefaultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(contentViewLayoutRes());
         setUpInitialFragment(savedInstanceState);
+        SumUpState.init(this);
 
     }
 
