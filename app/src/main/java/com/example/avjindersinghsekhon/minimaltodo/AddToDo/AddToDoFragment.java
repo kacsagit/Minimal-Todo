@@ -78,6 +78,13 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        theme = getActivity().getSharedPreferences(MainFragment.THEME_PREFERENCES, MODE_PRIVATE).getString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);
+        if (theme.equals(MainFragment.LIGHTTHEME)) {
+            getActivity().setTheme(R.style.CustomStyle_LightTheme);
+            Log.d("OskarSchindler", "Light Theme");
+        } else {
+            getActivity().setTheme(R.style.CustomStyle_DarkTheme);
+        }
         super.onViewCreated(view, savedInstanceState);
         app = (AnalyticsApplication) getActivity().getApplication();
 //        setContentView(R.layout.new_to_do_layout);
@@ -86,13 +93,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         TextView reminderRemindMeTextView;
 
 
-        theme = getActivity().getSharedPreferences(MainFragment.THEME_PREFERENCES, MODE_PRIVATE).getString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);
-        if (theme.equals(MainFragment.LIGHTTHEME)) {
-            getActivity().setTheme(R.style.CustomStyle_LightTheme);
-            Log.d("OskarSchindler", "Light Theme");
-        } else {
-            getActivity().setTheme(R.style.CustomStyle_DarkTheme);
-        }
+
 
 
         //Show an X in place of <-
