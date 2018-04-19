@@ -3,6 +3,8 @@ package com.example.avjindersinghsekhon.minimaltodo.Network;
 import android.util.Log;
 
 
+import org.greenrobot.eventbus.EventBus;
+
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -49,21 +51,29 @@ public class NetworkManager {
 
 
 
-    public void getData(String transactionCode,String merchantCode) {
-            netApi.getData(transactionCode,merchantCode).enqueue(new Callback<Receipt>() {
+    public void getReceipt(String transactionCode, String merchantCode) {
+            netApi.getReceipt(transactionCode,merchantCode).enqueue(new Callback<Receipt>() {
                 @Override
                 public void onResponse(Call<Receipt> call, Response<Receipt> response) {
                     if (response.isSuccessful()) {
                         Log.d(TAG, response.body().toString());
+                        GetReceiptEvent getReceiptEvent = new GetReceiptEvent();
+                        getReceiptEvent.setData(response.body());
+                        EventBus.getDefault().post(getReceiptEvent);
+                    }else{
+                        ErrorEvent errorEvent=new ErrorEvent();
+                        errorEvent.setData(response.message());
+                        EventBus.getDefault().post(errorEvent);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Receipt> call, Throwable t) {
-
+                    ErrorEvent errorEvent=new ErrorEvent();
+                    errorEvent.setData(t.getMessage());
+                    EventBus.getDefault().post(errorEvent);
                 }
             });
-
     }
 
 

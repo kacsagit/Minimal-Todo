@@ -105,8 +105,10 @@ public class PaymentActivity extends AppDefaultActivity {
             case R.id.payment:
                 SumUpAPI.openPaymentSettingsActivity(this, REQUEST_CODE_PAYMENT_SETTINGS);
                 return true;
-
-
+            case R.id.log_out:
+                SumUpAPI.logout();
+                onBackPressed();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -123,6 +125,8 @@ public class PaymentActivity extends AppDefaultActivity {
                     Log.d("Result code: ", String.valueOf(extra.getInt(SumUpAPI.Response.RESULT_CODE)));
                     Log.d("Message: ", extra.getString(SumUpAPI.Response.MESSAGE));
 
+                }else{
+                    onBackPressed();
                 }
                 break;
             case REQUEST_CODE_PAYMENT:

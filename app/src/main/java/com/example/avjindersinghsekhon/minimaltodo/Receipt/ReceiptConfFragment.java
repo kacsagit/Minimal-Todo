@@ -10,8 +10,18 @@ import android.widget.TextView;
 
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
+import com.example.avjindersinghsekhon.minimaltodo.Network.ErrorEvent;
+import com.example.avjindersinghsekhon.minimaltodo.Network.GetReceiptEvent;
 import com.example.avjindersinghsekhon.minimaltodo.Network.NetworkManager;
+import com.example.avjindersinghsekhon.minimaltodo.Network.Receipt;
 import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.sumup.merchant.Models.TransactionInfo;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import static com.example.avjindersinghsekhon.minimaltodo.Receipt.ReceiptConfActivity.MERCHANT_CODE;
 import static com.example.avjindersinghsekhon.minimaltodo.Receipt.ReceiptConfActivity.TRANSACTION_CODE;
@@ -31,6 +41,20 @@ public class ReceiptConfFragment extends AppDefaultFragment {
 
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetReceipt(GetReceiptEvent<Receipt> event) {
+        TransactionInfo transaction=event.getData().getTransactionData();
+        receipt.setText(String.valueOf(transaction.getAmount()));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetError(ErrorEvent<String> event) {
+        String error=event.getData();
+    }
+
+
+    TextView receipt;
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -41,10 +65,9 @@ public class ReceiptConfFragment extends AppDefaultFragment {
         String transCode = intent.getStringExtra(TRANSACTION_CODE);
         String merchCode = intent.getStringExtra(MERCHANT_CODE);
 
-        TextView receipt=view.findViewById(R.id.receipt);
-        receipt.setText(MERCHANT_CODE);
+        receipt = view.findViewById(R.id.receipt);
 
-        NetworkManager.getInstance().getData(transCode,merchCode);
+        NetworkManager.getInstance().getReceipt(transCode,merchCode);
     }
 
     @LayoutRes
@@ -54,5 +77,19 @@ public class ReceiptConfFragment extends AppDefaultFragment {
 
     public static ReceiptConfFragment newInstance() {
         return new ReceiptConfFragment();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }
