@@ -132,4 +132,14 @@
 
     <!--</style>-->
 
+
+    <style name="ReceiptTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">24sp</item>
+        <item name="android:paddingTop">8dp</item>
+    </style>
+
+    <style name="ReceiptDetail" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>

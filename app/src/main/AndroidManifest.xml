@@ -47,6 +47,7 @@
         <activity
             android:name=".Payment.PaymentActivity"
             android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".StartScreen.StartScreenActivity" />
 
         <activity

@@ -7,11 +7,13 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
@@ -35,6 +37,7 @@ public class PaymentActivity extends AppDefaultActivity {
     static final int REQUEST_CODE_LOGIN = 1;
     static final int REQUEST_CODE_PAYMENT = 2;
     private static final int REQUEST_CODE_PAYMENT_SETTINGS = 3;
+    LinearLayout linearLayout;
     static final String AFFILITE_KEY = "4069e3f8-3851-4ace-97ad-da7e98aac8e6";
 
 
@@ -64,13 +67,14 @@ public class PaymentActivity extends AppDefaultActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        linearLayout = findViewById(R.id.linearLayout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(backArrow);
         }
+
         SumUpLogin sumupLogin = SumUpLogin.builder(AFFILITE_KEY).build();
         SumUpAPI.openLoginActivity(this, sumupLogin, REQUEST_CODE_LOGIN);
 
@@ -118,6 +122,7 @@ public class PaymentActivity extends AppDefaultActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
+
         switch (requestCode) {
             case REQUEST_CODE_LOGIN:
                 if (data != null) {
@@ -150,7 +155,11 @@ public class PaymentActivity extends AppDefaultActivity {
                         Intent intent = new Intent(this, ReceiptConfActivity.class);
                         intent.putExtra(ReceiptConfActivity.TRANSACTION_CODE, txCode);
                         intent.putExtra(ReceiptConfActivity.MERCHANT_CODE, transactionInfo.getMerchantCode());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                    }
+                    else {
+                        Snackbar.make(linearLayout,"Something went wrong",Snackbar.LENGTH_LONG).show();
                     }
                 }
                 break;

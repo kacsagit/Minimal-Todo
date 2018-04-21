@@ -1,21 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:gravity="center|top"
     android:layout_height="match_parent">
 
-    <Button
+
+    <LinearLayout
         android:id="@+id/todo_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="todo"/>
+        android:padding="2dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
 
-    <Button
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/empty_view_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="@string/todos" />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
         android:id="@+id/pay_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pay"/>
+        android:padding="2dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/banking_cards_128" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="@string/start_payment" />
+
+    </LinearLayout>
+
 
 
 

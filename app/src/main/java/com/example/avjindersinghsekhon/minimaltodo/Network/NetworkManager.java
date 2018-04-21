@@ -1,5 +1,8 @@
 package com.example.avjindersinghsekhon.minimaltodo.Network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 
@@ -51,7 +54,8 @@ public class NetworkManager {
 
 
 
-    public void getReceipt(String transactionCode, String merchantCode) {
+    public void getReceipt(Context context,String transactionCode, String merchantCode) {
+        if (isOnline(context)) {
             netApi.getReceipt(transactionCode,merchantCode).enqueue(new Callback<Receipt>() {
                 @Override
                 public void onResponse(Call<Receipt> call, Response<Receipt> response) {
@@ -74,15 +78,22 @@ public class NetworkManager {
                     EventBus.getDefault().post(errorEvent);
                 }
             });
+        } else {
+            NoInternetEvent noInternetEvent = new NoInternetEvent();
+            EventBus.getDefault().post(noInternetEvent);
+
+        }
+    }
+
+    public boolean isOnline(Context context) {
+        ConnectivityManager conMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return conMgr != null && (conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED
+                || conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
     }
 
 
 
 
-    public interface ResponseListener<T> {
-        void onResponse(T t);
-
-        void onError(Exception e);
-    }
 
 }

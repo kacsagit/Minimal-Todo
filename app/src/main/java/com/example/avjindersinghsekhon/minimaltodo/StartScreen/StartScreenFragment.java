@@ -40,6 +40,7 @@ import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment
 import com.example.avjindersinghsekhon.minimaltodo.Main.CustomRecyclerScrollViewListener;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
+import com.example.avjindersinghsekhon.minimaltodo.Network.NetworkManager;
 import com.example.avjindersinghsekhon.minimaltodo.Payment.PaymentActivity;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Reminder.ReminderFragment;
@@ -73,12 +74,11 @@ public class StartScreenFragment extends AppDefaultFragment {
     public static final String RECREATE_ACTIVITY = "com.avjindersekhon.recreateactivity";
 
 
-
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final Button todoButton = (Button) view.findViewById(R.id.todo_button);
+        final LinearLayout todoButton =  view.findViewById(R.id.todo_button);
+        final LinearLayout linearLayout = view.findViewById(R.id.linearLayout);
         todoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,19 +86,20 @@ public class StartScreenFragment extends AppDefaultFragment {
                 startActivity(intent);
             }
         });
-        final Button payButton = (Button) view.findViewById(R.id.pay_button);
+        final LinearLayout payButton =  view.findViewById(R.id.pay_button);
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), PaymentActivity.class);
-                startActivity(intent);
+                if (NetworkManager.getInstance().isOnline(getContext())) {
+                    Intent intent = new Intent(getContext(), PaymentActivity.class);
+                    startActivity(intent);
+                }else{
+                    Snackbar.make(linearLayout, R.string.no_internt,Snackbar.LENGTH_LONG).show();
+                }
             }
         });
 
     }
-
-
-
 
 
     @Override
