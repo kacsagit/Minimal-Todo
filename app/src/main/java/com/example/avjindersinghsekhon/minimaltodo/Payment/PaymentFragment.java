@@ -42,20 +42,24 @@ public class PaymentFragment extends AppDefaultFragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (NetworkManager.getInstance().isOnline(getContext())) {
-                    SumUpPayment payment = SumUpPayment.builder()
-                            // mandatory parameters
-                            .total(new BigDecimal(amount.getText().toString())) // minimum 1.00
-                            .currency(SumUpPayment.Currency.EUR)
-                            // optional: add details
-                            .title("Payment")
-                            .receiptEmail("katajona@gmail.com")
-                            .receiptSMS("+36203639701")
-                            .build();
+                if ((!amount.getText().toString().equals("")) && (Double.parseDouble(amount.getText().toString())>=1.0)) {
+                    if (NetworkManager.getInstance().isOnline(getContext())) {
+                        SumUpPayment payment = SumUpPayment.builder()
+                                // mandatory parameters
+                                .total(new BigDecimal(amount.getText().toString())) // minimum 1.00
+                                .currency(SumUpPayment.Currency.EUR)
+                                // optional: add details
+                                .title("Payment")
+                                .receiptEmail("katajona@gmail.com")
+                                .receiptSMS("+36203639701")
+                                .build();
 
-                    SumUpAPI.checkout(getActivity(), payment, PaymentActivity.REQUEST_CODE_PAYMENT);
-                } else {
-                    Snackbar.make(linearLayout, R.string.no_internt, Snackbar.LENGTH_LONG).show();
+                        SumUpAPI.checkout(getActivity(), payment, PaymentActivity.REQUEST_CODE_PAYMENT);
+                    } else {
+                        Snackbar.make(linearLayout, R.string.no_internt, Snackbar.LENGTH_LONG).show();
+                    }
+                }else{
+                    Snackbar.make(linearLayout, R.string.amount_should_be_given, Snackbar.LENGTH_LONG).show();
                 }
             }
         });

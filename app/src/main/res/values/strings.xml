@@ -39,4 +39,5 @@
     <string name="amount">Amount</string>
     <string name="status">Status</string>
     <string name="card">Card</string>
+    <string name="amount_should_be_given">Amount should be given and at least 1</string>
 </resources>
