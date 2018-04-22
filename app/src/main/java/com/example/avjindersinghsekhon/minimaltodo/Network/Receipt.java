@@ -7,13 +7,13 @@ import com.sumup.merchant.Models.TransactionInfo;
 public class Receipt {
 
     @SerializedName("transaction_data")
-    TransactionInfo transactionData;
+    TransactionData transactionData;
     @SerializedName("merchant_data")
     JsonObject merchantData;
     @SerializedName("acquirer_data")
     JsonObject acquirerData;
 
-    public TransactionInfo getTransactionData() {
+    public TransactionData getTransactionData() {
         return transactionData;
     }
 

@@ -18,6 +18,7 @@ import com.example.avjindersinghsekhon.minimaltodo.Network.GetReceiptEvent;
 import com.example.avjindersinghsekhon.minimaltodo.Network.NetworkManager;
 import com.example.avjindersinghsekhon.minimaltodo.Network.NoInternetEvent;
 import com.example.avjindersinghsekhon.minimaltodo.Network.Receipt;
+import com.example.avjindersinghsekhon.minimaltodo.Network.TransactionData;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.sumup.merchant.Models.TransactionInfo;
 
@@ -41,7 +42,7 @@ public class ReceiptConfFragment extends AppDefaultFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGetReceipt(GetReceiptEvent<Receipt> event) {
-        TransactionInfo transaction = event.getData().getTransactionData();
+        TransactionData transaction = event.getData().getTransactionData();
         amount.setText(String.valueOf(transaction.getAmount()));
         currency.setText(transaction.getCurrency());
         status.setText(transaction.getStatus());
